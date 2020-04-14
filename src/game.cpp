@@ -50,6 +50,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
   }
 }
 
+// TODO: Update to use vector of Food and randomize number of foods placed
 void Game::PlaceFood() {
   int x, y;
   while (true) {
@@ -65,6 +66,7 @@ void Game::PlaceFood() {
   }
 }
 
+// TODO: Update to use Food score
 void Game::Update() {
   if (!snake.alive) return;
 
