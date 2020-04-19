@@ -54,6 +54,7 @@ void Renderer::Render(Snake const snake, std::vector<Food> const &food) {
     block.x = f.x * block.w;
     block.y = f.y * block.h;
     SDL_RenderFillRect(sdl_renderer, &block);
+    std::cout<<"Rendering food, x = " << f.x << ", y = " << f.y <<std::endl;
   }
   
 

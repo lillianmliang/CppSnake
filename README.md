@@ -10,13 +10,8 @@ Purple food is "slow" food. When eaten by the snake, the snake slows down slight
 Green food is "filling" food. When eaten by the snake, the user gets double points compared to when the snake eats other types of food.
 Red food is "poison" and ends the game when the snake eats it.
 
-Known bugs:
-* Seg fault when removing from food vector
-* "[xcb] Unknown sequence number while appending request
-[xcb] Most likely this is a mult-threaded client and XInitThreads has not been called
-..."
+Known bug:
 * Sometimes new food does not render, and the player does not have any actions to take
-
 
 <img src="snake_game.gif"/>
 

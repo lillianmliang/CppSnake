@@ -6,8 +6,8 @@
 Game::Game(std::size_t grid_width, std::size_t grid_height)
     : snake(grid_width, grid_height),
       engine(dev()),
-      random_w(0, static_cast<int>(grid_width)),
-      random_h(0, static_cast<int>(grid_height)),
+      random_w(0, static_cast<int>(grid_width)-1),
+      random_h(0, static_cast<int>(grid_height)-1),
       random_food(0, static_cast<int>(FoodType::Filling)) {
   PlaceFood();
 }
@@ -68,9 +68,11 @@ void Game::PlaceFood(bool random) {
       }
     }
     if (occupied) continue; // if occupied, try again
+    // else if position not occupied, add new food
     else 
     {
       food.emplace_back(static_cast<FoodType> (foodType), x, y);
+      // if new food was poison, then generate another random food so that the snake has something to eat
       if (static_cast<FoodType> (foodType) == FoodType::Poison) continue;
       else break;
     }
@@ -93,26 +95,13 @@ void Game::Update() {
         break;
       }
       else {
+        // Award points to the user, grow snake, modify speed
         score+=f._points;
-        // Grow snake and increase speed.
         snake.GrowBody();
         if (snake.speed+f._speedDiff>0) snake.speed += f._speedDiff;
-        std::cout<<"speed "<<snake.speed<<std::endl;
-        
-        // pop eaten food
-        std::cout<<"food.size before pop back: "<<food.size()<<std::endl;
+        // remove "eaten" food from vector & place new food
         food.pop_back();
-        std::cout<<"food.size after pop back: "<<food.size()<<std::endl;
-        
-        // place new food
-        std::cout<<"food.size before place food: "<<food.size()<<std::endl;
         PlaceFood(true);
-        std::cout<<"food.size after place food: "<<food.size()<<std::endl;
-        std::cout<<"Food placed"<<std::endl;
-        // remove element from food vector and exit loop
-        //std::cout<<"food.size before erase: "<<food.size()<<std::endl;
-        //food.erase(it);
-        //std::cout<<"food.size after erase: "<<food.size()<<std::endl;
         break;
       }
     }

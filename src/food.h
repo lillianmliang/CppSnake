@@ -9,8 +9,7 @@ enum FoodType
     Speedy,
     Slow,
     Poison,
-    Filling,
-    NA 
+    Filling
 };
 
 class Food : public SDL_Point {
