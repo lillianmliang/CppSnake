@@ -38,8 +38,7 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
-// TODO: Use Food vector
-void Renderer::Render(Snake const snake, SDL_Point const &food) {
+void Renderer::Render(Snake const snake, std::vector<Food> const &food) {
   SDL_Rect block;
   block.w = screen_width / grid_width;
   block.h = screen_height / grid_height;
@@ -48,11 +47,15 @@ void Renderer::Render(Snake const snake, SDL_Point const &food) {
   SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF); // black
   SDL_RenderClear(sdl_renderer);
 
-  // Render food
-  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xCC, 0x00, 0xFF); // yellow
-  block.x = food.x * block.w;
-  block.y = food.y * block.h;
-  SDL_RenderFillRect(sdl_renderer, &block);
+  for (auto f : food)
+  {
+    // Render food
+    SDL_SetRenderDrawColor(sdl_renderer, f._Rvalue, f._Gvalue, f._Bvalue, 0xFF);
+    block.x = f.x * block.w;
+    block.y = f.y * block.h;
+    SDL_RenderFillRect(sdl_renderer, &block);
+  }
+  
 
   // Render snake's body
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF); // white

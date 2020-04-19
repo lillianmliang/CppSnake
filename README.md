@@ -1,12 +1,22 @@
 # CPPND: Capstone Snake Game
 
-Ideas:
-different colored "food" causing different reactions: extra points, speed up, slow down, game over
-extra credit: multi-player
-extra credit: add "lives" to the game
-extra credit: scoreboard - top scores
-
 This project uses the Capstone project starter repo in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
+
+This project adds gameplay functionality for different "food" types for the snake.
+
+Yellow food is "regular" food. When eaten by the snake, the snake speeds up the snake slightly.
+Orange food is "speedy" food. When eaten by the snake, the snake speeds up twice as much as it speeds up when it eats yellow food.
+Purple food is "slow" food. When eaten by the snake, the snake slows down slightly.
+Green food is "filling" food. When eaten by the snake, the user gets double points compared to when the snake eats other types of food.
+Red food is "poison" and ends the game when the snake eats it.
+
+Known bugs:
+* Seg fault when removing from food vector
+* "[xcb] Unknown sequence number while appending request
+[xcb] Most likely this is a mult-threaded client and XInitThreads has not been called
+..."
+* Sometimes new food does not render, and the player does not have any actions to take
+
 
 <img src="snake_game.gif"/>
 

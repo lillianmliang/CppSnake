@@ -1,12 +1,14 @@
 #include "game.h"
 #include <iostream>
 #include "SDL.h"
+#include "food.h"
 
 Game::Game(std::size_t grid_width, std::size_t grid_height)
     : snake(grid_width, grid_height),
       engine(dev()),
       random_w(0, static_cast<int>(grid_width)),
-      random_h(0, static_cast<int>(grid_height)) {
+      random_h(0, static_cast<int>(grid_height)),
+      random_food(0, static_cast<int>(FoodType::Filling)) {
   PlaceFood();
 }
 
@@ -50,23 +52,31 @@ void Game::Run(Controller const &controller, Renderer &renderer,
   }
 }
 
-// TODO: Update to use vector of Food and randomize number of foods placed
-void Game::PlaceFood() {
-  int x, y;
+void Game::PlaceFood(bool random) {
+  int x, y, foodType;
+  bool occupied;
   while (true) {
     x = random_w(engine);
     y = random_h(engine);
-    // Check that the location is not occupied by a snake item before placing
-    // food.
-    if (!snake.SnakeCell(x, y)) {
-      food.x = x;
-      food.y = y;
-      return;
+    foodType = random? random_food(engine) : FoodType::Normal;
+    occupied = false;
+    // Check that the location is not occupied before placing food.
+    if (snake.SnakeCell(x, y)) occupied = true;  // snake is already in this location
+    else {
+      for (auto f : food) {
+        if (x == f.x && y == f.y) occupied = true; // food is already in this location
+      }
+    }
+    if (occupied) continue; // if occupied, try again
+    else 
+    {
+      food.emplace_back(static_cast<FoodType> (foodType), x, y);
+      if (static_cast<FoodType> (foodType) == FoodType::Poison) continue;
+      else break;
     }
   }
 }
 
-// TODO: Update to use Food score
 void Game::Update() {
   if (!snake.alive) return;
 
@@ -74,14 +84,38 @@ void Game::Update() {
 
   int new_x = static_cast<int>(snake.head_x);
   int new_y = static_cast<int>(snake.head_y);
-
   // Check if there's food over here
-  if (food.x == new_x && food.y == new_y) {
-    score++;
-    PlaceFood();
-    // Grow snake and increase speed.
-    snake.GrowBody();
-    snake.speed += 0.02;
+  for (auto it = food.begin(); it !=food.end(); it++)  {
+    auto f = *it;
+    if (f.x == new_x && f.y == new_y) {
+      if (f._type == FoodType::Poison) {
+        snake.alive = false;
+        break;
+      }
+      else {
+        score+=f._points;
+        // Grow snake and increase speed.
+        snake.GrowBody();
+        if (snake.speed+f._speedDiff>0) snake.speed += f._speedDiff;
+        std::cout<<"speed "<<snake.speed<<std::endl;
+        
+        // pop eaten food
+        std::cout<<"food.size before pop back: "<<food.size()<<std::endl;
+        food.pop_back();
+        std::cout<<"food.size after pop back: "<<food.size()<<std::endl;
+        
+        // place new food
+        std::cout<<"food.size before place food: "<<food.size()<<std::endl;
+        PlaceFood(true);
+        std::cout<<"food.size after place food: "<<food.size()<<std::endl;
+        std::cout<<"Food placed"<<std::endl;
+        // remove element from food vector and exit loop
+        //std::cout<<"food.size before erase: "<<food.size()<<std::endl;
+        //food.erase(it);
+        //std::cout<<"food.size after erase: "<<food.size()<<std::endl;
+        break;
+      }
+    }
   }
 }
 

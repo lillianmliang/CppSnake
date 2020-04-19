@@ -18,17 +18,16 @@ class Game {
 
  private:
   Snake snake;
-  // TODO: change to vector of Food
-  SDL_Point food;
+  std::vector<Food> food;
 
   std::random_device dev;
   std::mt19937 engine;
   std::uniform_int_distribution<int> random_w;
   std::uniform_int_distribution<int> random_h;
-
+  std::uniform_int_distribution<int> random_food;
   int score{0};
 
-  void PlaceFood();
+  void PlaceFood(bool random = false);
   void Update();
 };
 
