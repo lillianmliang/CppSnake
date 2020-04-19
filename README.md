@@ -4,16 +4,13 @@ This project uses the Capstone project starter repo in the [Udacity C++ Nanodegr
 
 This project adds gameplay functionality for different "food" types for the snake.
 
-Yellow food is "regular" food. When eaten by the snake, the snake speeds up the snake slightly.
+Yellow food ics "regular" food. When eaten by the snake, the snake speeds up the snake slightly.
 Orange food is "speedy" food. When eaten by the snake, the snake speeds up twice as much as it speeds up when it eats yellow food.
 Purple food is "slow" food. When eaten by the snake, the snake slows down slightly.
 Green food is "filling" food. When eaten by the snake, the user gets double points compared to when the snake eats other types of food.
 Red food is "poison" and ends the game when the snake eats it.
 
-Known bug:
-* Sometimes new food does not render, and the player does not have any actions to take
-
-<img src="snake_game.gif"/>
+<img src="snake_modified.gif"/>
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
