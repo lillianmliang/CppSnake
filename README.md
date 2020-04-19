@@ -2,13 +2,12 @@
 
 This project uses the Capstone project starter repo in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
 
-This project adds gameplay functionality for different "food" types for the snake.
-
-Yellow food ics "regular" food. When eaten by the snake, the snake speeds up the snake slightly.
-Orange food is "speedy" food. When eaten by the snake, the snake speeds up twice as much as it speeds up when it eats yellow food.
-Purple food is "slow" food. When eaten by the snake, the snake slows down slightly.
-Green food is "filling" food. When eaten by the snake, the user gets double points compared to when the snake eats other types of food.
-Red food is "poison" and ends the game when the snake eats it.
+This project adds gameplay functionality for different "food" types for the snake:
+* Yellow food ics "regular" food. When eaten by the snake, the snake speeds up the snake slightly.
+* Orange food is "speedy" food. When eaten by the snake, the snake speeds up twice as much as it speeds up when it eats yellow food.
+* Purple food is "slow" food. When eaten by the snake, the snake slows down slightly.
+* Green food is "filling" food. When eaten by the snake, the user gets double points compared to when the snake eats other types of food.
+* Red food is "poison" and ends the game when the snake eats it.
 
 <img src="snake_modified.gif"/>
 
